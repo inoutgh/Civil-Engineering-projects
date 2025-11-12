@@ -1,0 +1,191 @@
+#define BLYNK_TEMPLATE_ID "TMPL2dWM8XqA2"
+#define BLYNK_TEMPLATE_NAME "Health Monitoring"
+#define BLYNK_AUTH_TOKEN "UHxL92UO2KvEIheOeJWS18MU_Apsbhzf"
+
+#include <WiFi.h>
+#include <BlynkSimpleEsp32.h>
+#include <Wire.h>
+#include "MAX30100_PulseOximeter.h"
+
+// Wi-Fi Credentials
+const char* ssid = "Inout";
+const char* password = "225522@gH123";
+
+// Virtual pins for Blynk
+#define VPIN_HEART_RATE V1
+#define VPIN_SPO2 V2
+
+// Optimized sensor settings
+#define IR_LED_CURRENT MAX30100_LED_CURR_50MA
+#define REPORTING_PERIOD_MS 500
+
+// Measurement validation thresholds
+#define MIN_VALID_READINGS 3
+#define MAX_BPM 220
+#define MIN_BPM 40
+#define MIN_SPO2 70
+
+// Finger detection settings
+#define FINGER_ON_IR_THRESHOLD 30000    // IR value threshold for finger detection
+#define FINGER_OFF_TIMEOUT 2000         // Time in ms to wait before considering finger removed
+
+PulseOximeter pox;
+uint32_t tsLastReport = 0;
+uint8_t validReadingsCount = 0;
+float lastValidHeartRate = 0;
+uint8_t lastValidSpO2 = 0;
+
+// Finger detection variables
+bool fingerPresent = false;
+uint32_t lastFingerCheckTime = 0;
+uint32_t fingerOffTime = 0;
+
+// Function declarations
+void onBeatDetected();
+bool validateReading(float heartRate, uint8_t spO2);
+void sendToBlynk(float heartRate, uint8_t spO2);
+void displayReadings(float heartRate, uint8_t spO2);
+bool checkFingerPresent();
+void resetReadings();
+
+void onBeatDetected() {
+    if (fingerPresent) {
+        Serial.println("Beat detected!");
+    }
+}
+
+void setup() {
+    Serial.begin(115200);
+    
+    // Connect to WiFi with timeout
+    WiFi.begin(ssid, password);
+    uint8_t wifiTimeout = 0;
+    while (WiFi.status() != WL_CONNECTED && wifiTimeout < 20) {
+        delay(500);
+        Serial.print(".");
+        wifiTimeout++;
+    }
+    
+    if (WiFi.status() != WL_CONNECTED) {
+        Serial.println("\nWiFi connection failed! Operating in offline mode");
+    } else {
+        Serial.println("\nConnected to WiFi");
+        Blynk.begin(BLYNK_AUTH_TOKEN, ssid, password);
+    }
+    
+    // Initialize sensor with optimized settings
+    Serial.print("Initializing pulse oximeter..");
+    if (!pox.begin()) {
+        Serial.println("FAILED");
+        for(;;);
+    } else {
+        Serial.println("SUCCESS");
+    }
+    
+    // Configure sensor
+    pox.setOnBeatDetectedCallback(onBeatDetected);
+    pox.setIRLedCurrent(IR_LED_CURRENT);
+    
+    // Initialize Blynk values
+    resetReadings();
+}
+
+void loop() {
+    if (WiFi.status() == WL_CONNECTED) {
+        Blynk.run();
+    }
+    
+    // Update sensor readings
+    pox.update();
+    
+    // Check for finger presence every 100ms
+    if (millis() - lastFingerCheckTime > 100) {
+        bool currentFingerState = checkFingerPresent();
+        
+        // Finger state changed from not present to present
+        if (!fingerPresent && currentFingerState) {
+            Serial.println("Finger detected! Starting measurements...");
+            resetReadings();
+            fingerPresent = true;
+            fingerOffTime = 0;
+        }
+        // Finger state changed from present to not present
+        else if (fingerPresent && !currentFingerState) {
+            if (fingerOffTime == 0) {
+                fingerOffTime = millis();
+            }
+            // Check if finger has been off for the timeout period
+            else if (millis() - fingerOffTime > FINGER_OFF_TIMEOUT) {
+                Serial.println("Finger removed. Waiting for finger placement...");
+                fingerPresent = false;
+                resetReadings();
+            }
+        }
+        // Finger still present - reset the off timer
+        else if (fingerPresent && currentFingerState) {
+            fingerOffTime = 0;
+        }
+        
+        lastFingerCheckTime = millis();
+    }
+    
+    // Only process readings if finger is present
+    if (fingerPresent && millis() - tsLastReport > REPORTING_PERIOD_MS) {
+        float heartRate = pox.getHeartRate();
+        uint8_t spO2 = pox.getSpO2();
+        
+        if (validateReading(heartRate, spO2)) {
+            validReadingsCount++;
+            lastValidHeartRate = heartRate;
+            lastValidSpO2 = spO2;
+            
+            if (validReadingsCount >= MIN_VALID_READINGS) {
+                sendToBlynk(heartRate, spO2);
+                displayReadings(heartRate, spO2);
+            }
+        } else {
+            validReadingsCount = 0;
+        }
+        
+        tsLastReport = millis();
+    }
+}
+
+bool checkFingerPresent() {
+    // Check if we have valid readings as indication of finger presence
+    float heartRate = pox.getHeartRate();
+    uint8_t spO2 = pox.getSpO2();
+    
+    // Consider finger present if we're getting non-zero readings
+    return (heartRate > 0 && spO2 > 0);
+}
+
+void resetReadings() {
+    validReadingsCount = 0;
+    lastValidHeartRate = 0;
+    lastValidSpO2 = 0;
+    Blynk.virtualWrite(VPIN_HEART_RATE, 0);
+    Blynk.virtualWrite(VPIN_SPO2, 0);
+}
+
+bool validateReading(float heartRate, uint8_t spO2) {
+    return (heartRate >= MIN_BPM && 
+            heartRate <= MAX_BPM && 
+            spO2 >= MIN_SPO2 && 
+            spO2 <= 100);
+}
+
+void sendToBlynk(float heartRate, uint8_t spO2) {
+    if (WiFi.status() == WL_CONNECTED) {
+        Blynk.virtualWrite(VPIN_HEART_RATE, heartRate);
+        Blynk.virtualWrite(VPIN_SPO2, spO2);
+    }
+}
+
+void displayReadings(float heartRate, uint8_t spO2) {
+    Serial.print("Heart rate: ");
+    Serial.print(heartRate);
+    Serial.print(" bpm / SpO2: ");
+    Serial.print(spO2);
+    Serial.println(" %");
+}

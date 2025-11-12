@@ -1,0 +1,51 @@
+Age,Gender,Programme,Source of drinking water,How much do you spend on water weekly,How do you get water for consumption?,Do you get any allergies after using the type of water you onsume?,If you run out of drinking water how do you get some? Do you opt for the following?,Do you use tap water for laundry?,What is the quantity of water you use daily?,Water_brand,How do you store water,"On a scale of 1-10, how will you rate the quality of water you consume daily?"
+18-25,Female,Civil Engineering,Satchet water,1-10 cedis,Retail,No,You borrow,Yes,500ml-1litre,Cool (Sachet),Fridge,8
+18-25,Male,Civil Engineering,Bottled water,1-10 cedis,Retail,No,Tap water,Yes,500ml-1litre,Alpha,Fridge,7
+18-25,Female,Biological Science,Satchet water,1-10 cedis,Retail,No,You borrow,Yes,1 litre-2 litres,Jove (Sachet),Locker,6
+18-25,Female,Doctor of Pharmacy,Bottled water,50 cedis,Retail,Yes,You borrow,Yes,1 litre-2 litres,Cool (Sachet),Other,8
+18-25,Female,Business Administration,Satchet water,1-10 cedis,Retail,No,You borrow,Yes,500ml-1litre,Crystal Ice (Sachet),Other,6
+18-25,Female,Business Administration,Satchet water,10-20 cedis,Retail,No,You borrow,Yes,1 litre-2 litres,Jove (Sachet),Fridge,7
+18-25,Female,Environmental Science,Satchet water,1-10 cedis,Retail,No,You borrow,Yes,Above 2 litres,Lavie (Sachet),Fridge,7
+18-25,Female,Electrical and Electronic Engineering,Satchet water,1-10 cedis,Retail,No,You borrow,Yes,Above 2 litres,Cool (Sachet),Other,7
+18-25,Female,Logistics and Supply Chain Management,Satchet water,1-10 cedis,Wholesale,No,You borrow,Yes,Above 2 litres,Crystal Ice (Sachet),Fridge,8
+18-25,Female,Mechanical Engineering,Satchet water,10-20 cedis,Retail,No,You borrow,Yes,Above 2 litres,Cool (Sachet),Fridge,6
+18-25,Female,Business Administration,Satchet water,1-10 cedis,Retail,No,You borrow,Yes,Above 2 litres,Cool (Sachet),Other,7
+18-25,Female,Marketing,Satchet water,1-10 cedis,Retail,No,I buy,Yes,Above 2 litres,Tap water,Fridge,6
+18-25,Male,Geological Engineering,Tap water,1-10 cedis,Tap water,No,Buy ,Yes,Above 2 litres,Voltic,Fridge,8
+18-25,Male,Mechanical Engineering,Bottled water,20-30 cedis,Retail,No,Tap water,Yes,Above 2 litres,Cool (Sachet),Fridge,8
+18-25,Male,Geomatic Engineering,Satchet water,10-20 cedis,Retail,No,Tap water,Yes,Above 2 litres,Lavie (Sachet),Fridge,8
+18-25,Female,Human Resource Management,Satchet water,20-30 cedis,Wholesale,No,You borrow,Yes,500ml-1litre,Cool (Sachet),Other,10
+18-25,Male,Geomatic Engineering,Satchet water,20-30 cedis,Retail,No,Tap water,Yes,1 litre-2 litres,Belacqua,Fridge,8
+18-25,Male,Accounting,Bottled water,20-30 cedis,Wholesale,No,Tap water,Yes,Above 2 litres,Cool (Sachet),Fridge,8
+18-25,Male,Civil Engineering,Satchet water,1-10 cedis,Retail,No,You borrow,Yes,Above 2 litres,Verna,Fridge,8
+18-25,Male,Mechanical Engineering,Bottled water,10-20 cedis,Retail,No,Tap water,Yes,1 litre-2 litres,Cool (Sachet),Fridge,6
+18-25,Male,Geomatic Engineering,Satchet water,1-10 cedis,Retail,No,Tap water,Yes,1 litre-2 litres,Cool (Sachet),Fridge,6
+18-25,Female,Business Administration,Satchet water,1-10 cedis,Retail,No,You borrow,Yes,500ml-1litre,Cool (Sachet),Fridge,8
+18-25,Female,Accounting,Satchet water,1-10 cedis,Retail,No,You borrow,Yes,500ml-1litre,Lavie (Sachet),Fridge,8
+18-25,Female,Civil Engineering,Satchet water,1-10 cedis,Retail,No,Tap water,Yes,1 litre-2 litres,Crystal Ice (Sachet),Locker,8
+25-30,Male,Geological Engineering,Satchet water,1-10 cedis,Tap water,No,Tap water,Yes,Above 2 litres,Alpha,Fridge,6
+18-25,Male,Civil Engineering,Satchet water,10-20 cedis,Retail,Yes,Tap water,Yes,1 litre-2 litres,Cool (Sachet),Locker,6
+16-18,Female,Materials Engineering,Bottled water,20-30 cedis,Retail,No,You borrow,Yes,1 litre-2 litres,Voltic,Locker,7
+18-25,Female,Business Information Technology,Satchet water,1-10 cedis,Retail,No,You borrow,Yes,Above 2 litres,Cool (Sachet),Locker,3
+18-25,Male,Medical Laboratory Science,Bottled water,20-30 cedis,Retail,No,You borrow,Yes,Above 2 litres,Lavie (Sachet),Locker,8
+18-25,Female,Nursing,Satchet water,10-20 cedis,Retail,No,Tap water,Yes,Above 2 litres,Cool (Sachet),Fridge,7
+18-25,Female,Materials Engineering,Satchet water,1-10 cedis,Retail,No,Tap water,Yes,1 litre-2 litres,Cool (Sachet),Other,5
+18-25,Female,Business Information Technology,Satchet water,1-10 cedis,Retail,No,You borrow,Yes,Above 2 litres,Jove (Sachet),Locker,4
+18-25,Male,Civil Engineering,Satchet water,20-30 cedis,Retail,No,Tap water,Yes,Above 2 litres,Cool (Sachet),Locker,7
+18-25,Female,Business Information Technology,Satchet water,1-10 cedis,Retail,No,Tap water,Yes,1 litre-2 litres,Verna,Fridge,8
+18-25,Female,Civil Engineering,Satchet water,10-20 cedis,Retail,No,Tap water,No,1 litre-2 litres,Cool (Sachet),Fridge,9
+18-25,Male,Civil Engineering,Bottled water,20-30 cedis,Wholesale,No,Tap water,Yes,500ml-1litre,Crystal Ice (Sachet),Fridge,9
+18-25,Male,Mechanical Engineering,Satchet water,10-20 cedis,Retail,No,Tap water,Yes,1 litre-2 litres,Cool (Sachet),Fridge,7
+18-25,Female,International Business,Satchet water,10-20 cedis,Retail,No,I buy some,Yes,Above 2 litres,Crystal Ice (Sachet),Fridge,6
+18-25,Male,Civil Engineering,Satchet water,1-10 cedis,Wholesale,No,I buy ,Yes,1 litre-2 litres,Cool (Sachet),Other,6
+18-25,Female,Information and Business Management,Satchet water,1-10 cedis,Retail,No,Buy another one ,Yes,500ml-1litre,Lavie (Sachet),Other,7
+18-25,Female,Civil Engineering,Satchet water,10-20 cedis,Retail,No,You borrow,Yes,Above 2 litres,Cool (Sachet),Fridge,5
+18-25,Female,Nursing,Satchet water,1-10 cedis,Retail,No,You borrow,Yes,Above 2 litres,Jove (Sachet),Fridge,7
+18-25,Male,Civil Engineering,Satchet water,1-10 cedis,Retail,No,You borrow,Yes,Above 2 litres,Cool (Sachet),Other,9
+18-25,Male,International Business,Satchet water,1-10 cedis,Retail,No,Tap water,Yes,1 litre-2 litres,Tap water,Fridge,5
+18-25,Female,Business Administration,Satchet water,1-10 cedis,Retail,No,You borrow,Yes,500ml-1litre,Cool (Sachet),Fridge,8
+18-25,Male,Materials Engineering,Tap water,1-10 cedis,Tap water,Sometimes my throat becomes sore,You borrow,Yes,Above 2 litres,Dispenser,Other,5
+18-25,Male,Civil Engineering,Satchet water,20-30 cedis,Retail,No,You borrow,Yes,Above 2 litres,Belacqua,Locker,7
+18-25,Male,Civil Engineering,Dispenser,10-20 cedis,Wholesale,No,I buy sachet or sometimes get my dispensers bottles refilled,Yes,Above 2 litres,Cool (Sachet),Fridge,8
+18-25,Male,Civil Engineering,Bottled water,i drink a lot of water ,Retail,No,You borrow,No,Above 2 litres,Belacqua,Fridge,6
+18-25,Female,Financial Accounting,Satchet water,10-20 cedis,Retail,No,Buy,Yes,Above 2 litres,Cool (Sachet),Fridge,8

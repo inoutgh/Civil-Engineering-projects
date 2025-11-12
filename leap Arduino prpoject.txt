@@ -1,0 +1,86 @@
+#define BLYNK_TEMPLATE_ID "TMPL2dWM8XqA2"
+#define BLYNK_TEMPLATE_NAME "Health Monitoring"
+#define BLYNK_AUTH_TOKEN "UHxL92UO2KvEIheOeJWS18MU_Apsbhzf"
+
+#include <WiFi.h>
+#include <BlynkSimpleEsp32.h>
+#include <Wire.h>
+#include "MAX30100_PulseOximeter.h"
+
+// Wi-Fi Credentials
+const char* ssid = "Inout";       // Replace with your Wi-Fi SSID
+const char* password = "225522@gH123";   // Replace with your Wi-Fi Password
+
+// Virtual pins for Blynk
+#define VPIN_HEART_RATE V1
+#define VPIN_SPO2 V2
+
+// Sensor update interval (in ms)
+#define REPORTING_PERIOD_MS 1000
+
+// Create a PulseOximeter object
+PulseOximeter pox;
+
+// Time tracking variables
+uint32_t tsLastReport = 0;
+
+void setup() {
+    Serial.begin(115200);
+    
+    // Connect to WiFi
+    WiFi.begin(ssid, password);
+    Serial.print("Connecting to WiFi");
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+    }
+    Serial.println("\nConnected to WiFi");
+
+    // Connect to Blynk
+    Blynk.begin(BLYNK_AUTH_TOKEN, ssid, password);
+    
+    // Initialize sensor
+    Serial.print("Initializing pulse oximeter..");
+    if (!pox.begin()) {
+        Serial.println("FAILED");
+        for(;;);
+    } else {
+        Serial.println("SUCCESS");
+    }
+
+    // Configure sensor settings
+    pox.setIRLedCurrent(MAX30100_LED_CURR_7_6MA);
+    
+    // Create initial Blynk notification
+    Blynk.virtualWrite(VPIN_HEART_RATE, 0);
+    Blynk.virtualWrite(VPIN_SPO2, 0);
+}
+
+void loop() {
+    Blynk.run();
+    
+    // Update sensor readings
+    pox.update();
+
+    // Send data to Blynk at specified intervals
+    if (millis() - tsLastReport > REPORTING_PERIOD_MS) {
+        // Get readings
+        float heartRate = pox.getHeartRate();
+        uint8_t spO2 = pox.getSpO2();
+        
+        // Print to Serial for debugging
+        Serial.print("Heart rate: ");
+        Serial.print(heartRate);
+        Serial.print(" bpm / SpO2: ");
+        Serial.print(spO2);
+        Serial.println(" %");
+
+        // Send to Blynk if readings are valid
+        if (heartRate > 0 && spO2 > 0) {
+            Blynk.virtualWrite(VPIN_HEART_RATE, heartRate);
+            Blynk.virtualWrite(VPIN_SPO2, spO2);
+        }
+        
+        tsLastReport = millis();
+    }
+}
